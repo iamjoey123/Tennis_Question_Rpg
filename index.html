@@ -1,67 +1,455 @@
-<!DOCTYPE html>
-
+<!DOCTYPE html>  
 <html>
-<head>
-    <meta charset="utf-8">
-    <title>Tennis Life - Home</title>
-    <link rel= "stylesheet" type="text/css" href= "styles.css"
-    
-</head>
-<body>
+	<head>  
+	<meta charset="utf-8" />  
+	<title>question rpg</title>  
+	<script type="text/javascript" src="y.js"></script>  
+		<style>
+		p{
+			font-size:4em;
+		}
+		div.heart{
+			position:absolute;
+			left:0px;
+			top:800px;
+		}
+		div.quest{
+			position:absolute;
+			left:100px;
+			top:50px;
+		}
+		img.block1{
+			position:absolute;
+			width:1766px;
+			height:900px;
+			left:0px;
+			top:0px;
+			z-index:-1;
+		}
+		audio.audioplayer{
+			top:15px;
+			left:0px;
+		}
+		img.block2{
+			position:absolute;
+			width:1766px;
+			height:900px;
+			left:0px;
+			top:0px;
+			 z-index:-1;
+		}
+		img.theend{
+			position:absolute;
+			width:1766px;
+			height:900px;
+			left:0px;
+			top:0px;
+			z-index:6;
+		}
+		img.arrow{
+			position:absolute;
+			left:900px;
+			top:600px;
+		}
+		canvas{
+			position:absolute;
+			left:0px;
+			top:0px;
+		}
+		img.choice1{
+			
+			position:absolute;
+			left:440px;
+			top:200px;
+			 z-index:0;
+		}
+		div.c1{
+			position:absolute;
+			left:480px;
+			top:200px;
+			z-index:1;
+			color:white;
+			text-decoration:transparent;
+		}
+		img.choice2{
+			
+			position:absolute;
+			left:1100px;
+			top:200px;
+			 z-index:0;
+		}
+		div.c2{
+			position:absolute;
+			left:1140px;
+			top:200px;
+			z-index:1;
+			color:white;
+			text-decoration:transparent;
+		}
+		img.choice3{
+			
+			position:absolute;
+			left:320px;
+			top:400px;
+			 z-index:0;
+		}
+		div.c3{
+			position:absolute;
+			left:360px;
+			top:400px;
+			z-index:1;
+			color:white;
+			text-decoration:transparent;
+		}
+		img.choice4{
+			
+			position:absolute;
+			left:980px;
+			top:400px;
+			z-index:0;
+		}
+		div.c4{
+			position:absolute;
+			left:1020px;
+			top:400px;
+			z-index:1;
+			color:white;
+			text-decoration:transparent;
+		}
+		</style>
+	<script language="javascript">  
+	var pos=180;
+	function endfun(){
+		$(".choice1").off("click");
+		$(".choice2").off("click");
+		$(".choice3").off("click");
+		$(".choice4").off("click");
+		$(".choice1").fadeOut();
+		$(".choice2").fadeOut();
+		$(".choice3").fadeOut();
+		$(".choice4").fadeOut();
+		$(".quest").fadeOut();
+		$(".c1").fadeOut();
+		$(".c2").fadeOut();
+		$(".c3").fadeOut();
+		$(".c4").fadeOut();
+	}
+	var r=0;
+	function question(){
+		if(r==1){$(".block1").fadeOut('100',function(){
+                $(".block1").attr('src','temp_second.jpg').fadeIn('200');
+        });}
+		if(r==1){$(".block2").fadeOut('100',function(){
+                $(".block2").attr('src','temp_second.jpg').fadeIn('200');
+        });}
+		if(r==2){$(".block1").fadeOut('100',function(){
+                $(".block1").attr('src','temp_third.jpg').fadeIn('200');
+        });}
+		if(r==2){$(".block2").fadeOut('100',function(){
+                $(".block2").attr('src','temp_third.jpg').fadeIn('200');
+        });}
+		if(r==3){$(".block1").fadeOut('100',function(){
+                $(".block1").attr('src','temp_fourth.png').fadeIn('200');
+        });}
+		if(r==3){$(".block2").fadeOut('100',function(){
+                $(".block2").attr('src','temp_fourth.png').fadeIn('200');
+        });}
+		if(r==4){$(".theend").fadeIn(2000);
+		setInterval(function(){$(".last").fadeIn(2000);},2000);
+		setInterval(function(){window.location.reload();},7000);}
+		if(r<4){
+			var q= "question1 question2 question3 question4".split(" ");
+			var c1="a11 a12 a13 a14".split(" ");
+			var c2="a1 a2 a3 a4".split(" ");
+			var c3="a1 a2 a3 a4".split(" ");
+			var c4="a1 a2 a3 a4".split(" ");
+			var blood =document.getElementById("hp");
+			var ans="1 2 3 4".split(" ");
+			var check=0;
+			$(".choice1").fadeIn();
+			$(".choice2").fadeIn();
+			$(".choice3").fadeIn();
+			$(".choice4").fadeIn();
+			var quest=document.getElementById("quest");
+			quest.innerHTML="";
+			quest.innerHTML+="<p style=' background-color:red;'>"+q[r]+"</p>";
+			var ch1=document.getElementById("c1");
+			ch1.innerHTML="";
+			ch1.innerHTML+="<p>"+c1[r]+"</p>";
+			var ch2=document.getElementById("c2");
+			ch2.innerHTML="";
+			ch2.innerHTML+="<p>"+c2[r]+"</p>";
+			var ch3=document.getElementById("c3");
+			ch3.innerHTML="";
+			ch3.innerHTML+="<p>"+c3[r]+"</p>";
+			var ch4=document.getElementById("c4");
+			ch4.innerHTML="";
+			ch4.innerHTML+="<p>"+c4[r]+"</p>";
+			$(".quest").fadeIn();
+			$(".c1").fadeIn();
+			$(".c2").fadeIn();
+			$(".c3").fadeIn();
+			$(".c4").fadeIn();
+			$(".choice1").on("click",function(){
+				var the=document.getElementById("choice1");
+				var rc= the.getBoundingClientRect();
+				if(ans[r]==1){$(".correct").slideDown(1000).slideUp(200);
+				check=1;endfun();$(".arrow").on("click");}
+				else{$(".wrong").slideDown(2000).slideUp(200);
+				var remo=document.getElementById("love");
+				if(remo){
+				var rect = remo.getBoundingClientRect();
+				$(".hand").css({top:(rect.top-100),left:(rect.left+pos)});
+				pos=pos-60;
+				$(".hand").fadeIn(50);
+				remo.parentNode.removeChild(remo);
+				$(".hand").animate({marginTop:200},1500);
+				$(".hand").fadeOut(500);
+				$(".hand").animate({marginTop:0},20);
+				}
+				else{
+					$(".arrow").fadeOut(200);
+					$(".gameover").fadeIn(2000);
+					setInterval(function(){window.location.reload();},7000);
+					}
+				check=1;endfun();}
+				r=r+1;
+			});
+			$(".choice2").on("click",function(){
+				var the=document.getElementById("choice2");
+				var rc= the.getBoundingClientRect();
+				if(ans[r]==2){$(".correct").slideDown(1000).slideUp(200);
+				check=1;endfun();$(".arrow").on("click");}
+				else{$(".wrong").slideDown(2000).slideUp(200);
+				var remo=document.getElementById("love");
+				if(remo){
+				var rect = remo.getBoundingClientRect();
+				$(".hand").css({top:(rect.top-100),left:(rect.left+pos)});
+				pos=pos-60;
+				$(".hand").fadeIn(50);
+				remo.parentNode.removeChild(remo);
+				$(".hand").animate({marginTop:200},1500);
+				$(".hand").fadeOut(500);
+				$(".hand").animate({marginTop:0},20);
+				}
+				else{
+					$(".arrow").fadeOut(200);
+					$(".gameover").fadeIn(2000);
+					setInterval(function(){window.location.reload();},7000);
+					}
+				check=1;endfun();}
+				r=r+1;
+			});
+			$(".choice3").on("click",function(){
+				var the=document.getElementById("choice3");
+				var rc= the.getBoundingClientRect();
+				if(ans[r]==3){$(".correct").slideDown(1000).slideUp(200);
+				check=1;endfun();$(".arrow").on("click");}
+				else{$(".wrong").slideDown(2000).slideUp(200);
+				var remo=document.getElementById("love");
+				if(remo){
+				var rect = remo.getBoundingClientRect();
+				$(".hand").css({top:(rect.top-100),left:(rect.left+pos)});
+				pos=pos-60;
+				$(".hand").fadeIn(50);
+				remo.parentNode.removeChild(remo);
+				$(".hand").animate({marginTop:200},1500);
+				$(".hand").fadeOut(500);
+				$(".hand").animate({marginTop:0},20);
+				}
+				else{
+					$(".arrow").fadeOut(200);
+					$(".gameover").fadeIn(2000);
+					setInterval(function(){window.location.reload();},7000);
+					}
+				check=1;endfun();}
+				r=r+1;
+			});
+			$(".choice4").on("click",function(){
+				var the=document.getElementById("choice4");
+				var rc= the.getBoundingClientRect();
+				if(ans[r]==4){$(".correct").slideDown(1000).slideUp(200);
+				check=1;endfun();$(".arrow").on("click");}
+				else{$(".wrong").slideDown(2000).slideUp(200);
+				var remo=document.getElementById("love");
+				if(remo){
+				var rect = remo.getBoundingClientRect();
+				$(".hand").css({top:(rect.top-100),left:(rect.left+pos)});
+				pos=pos-60;
+				$(".hand").fadeIn(50);
+				remo.parentNode.removeChild(remo);
+				$(".hand").animate({marginTop:200},1500);
+				$(".hand").fadeOut(500);
+				$(".hand").animate({marginTop:0},20);
+				}
+				else{
+					$(".arrow").fadeOut(200);
+					$(".gameover").fadeIn(2000);
+					setInterval(function(){window.location.reload();},7000);
+					}
+				check=1;endfun();}
+				r=r+1;
+			});
+		}
+	}
+	$(document).ready(function(){  
+		/*$("#right1").click(function(){
+			var pos = -50;
+			setInterval(() => {
+				$(".block1").css("margin-left",pos + "px")
+				if(pos>-300){pos -= 50;}
+			} ,500);
+			}); */
+			setInterval(function(){$(".start").fadeOut(2000);},2000);
+			var blood =document.getElementById("hp");
+			blood.innerHTML ="";
+			var x=0;
+			while(x<3){
+			blood.innerHTML +="<img src='blood.png' height='100' width='100' id='love'></img>";
+			x++;
+			}
+		$(".arrow").click(function(){
+			var x=0;
+			while(x<7){
+				$(".block1").animate({marginTop:20},240);
+				$(".block1").animate({marginTop:0},240);
+				x++;
+			}
+		});
+		$(".arrow").click(function(){
+			var x=0;
+			while(x<7){
+				$("#hp").animate({marginTop:20},240);
+				$("#hp").animate({marginTop:0},240);
+				x++;
+			}
+		});
+		$(".arrow").mouseover(function(){
+			this.src="arrow_hover.png";
+		});
+		$(".arrow").mouseout(function(){
+			this.src="arrow.png";
+		});
+		$(".arrow").click(function(){
+			this.src="arrow_click.png";
+			setInterval(function(){this.src="arrow.png";},100);
+		});
+		$(".choice1").mouseover(function(){
+			this.src="dirt1_hover.png";
+		});
+		$(".choice1").mouseout(function(){
+			this.src="dirt1.png";
+		});
+		$(".choice2").mouseover(function(){
+			this.src="dirt2_hover.png";
+		});
+		$(".choice3").mouseover(function(){
+			this.src="dirt3_hover.png";
+		});
+		$(".choice4").mouseover(function(){
+			this.src="dirt4_hover.png";
+		});
+		$(".choice2").mouseout(function(){
+			this.src="dirt2.png";
+		});
+		$(".choice3").mouseout(function(){
+			this.src="dirt3.png";
+		});
+		$(".choice4").mouseout(function(){
+			this.src="dirt4.png";
+		});
+		$(".arrow").click(function(){
+			var a=document.getElementById("play");
+			a.play();
+			a.addEventListener('ended',question);
+			});
+		$(".arrow").click(function(){
+			$(".choice1").fadeOut();
+			$(".choice2").fadeOut();
+			$(".choice3").fadeOut();
+			$(".choice4").fadeOut();
+			$(".quest").fadeOut();
+			});
+		$(".arrow").click(function(){
+			var x=0;
+			while(x<7){
+				$(".arrow").animate({marginTop:20},240);
+				$(".arrow").animate({marginTop:0},240);
+				x++;
+			}
+		});
+		$(".arrow").click(function(){
+			var x=0;
+			while(x<7){
+			$(".block2").animate({height:1080,width:1920,opacity:0},480);
+			$(".block2").animate({height:900,width:1766,opacity:1},0);
+			x++;
+			}
+		});
+	}); 
+	</script>  
 
-<div id="wrap">
-
-<div id="header">
-    <h1>如果網球遇見問答RPG?!</h1>
-    
-
-
-<div id="menu">
-    <ul>
-        <li><a href="homepage.html">首頁</a></li>
-        <li><a href="Introduction.html">網球歷史簡介</a></li>
-        <li><a href="Rules.html">網球基本規則</a></li>
-        <li><a href="rpg.html">測驗遊戲</a></li>
-		<li><a href="PPT.html">大綱投影片</a></li>
-        
-    </ul>
-</div>
-
-<div id="content">
-
-<div class="left">
-    <h2>打網球的各種好處</h2>
-    <pre>
-         1.降低體脂肪
-	 2.增強敏捷性與平衡感
-	 3.強化免疫系統
-	 4.更健康的人格
-	 5.增強協調性
-	 6.更好的社交能力
-	 7.更好的戰略能力
-	 8.飲食變得更健康了
-	 9.強化肌力與耐力
-	 10.生活更有樂趣
-    </pre>
-	 <h2>你還不快來一起打網球嗎?</h2>
-	<table>
-	<tr>
-		<td colspan = "3">ALL TIME GREAT-Roger Federer</td>
-	</tr>
-	<tr>
-		
-		<td><a href="https://zh.wikipedia.org/wiki/%E7%BD%97%E6%9D%B0%C2%B7%E8%B4%B9%E5%BE%B7%E5%8B%92"><img src="Federer.jpg" alt="Federer pic" style="border: 3px solid #ccc;" width="900px" height="500px"/></a></td>
-		
-	</tr>
-	
-	
-	</table>
-<br /><br />
-
-
-
-
-
-</div>
-</body>
-</html>
+	</head>  
+	<body style="text-align:center;" bgcolor="#000000">   
+		<div id="hp"class="heart" ></div>
+		<div id="quest" class="quest" style="display:none;"></div>
+		<div id="c1" class="c1" style="display:none;"></div>
+		<div id="c2" class="c2" style="display:none;"></div>
+		<div id="c3" class="c3" style="display:none;"></div>
+		<div id="c4" class="c4" style="display:none;"></div>
+		<img src="dirt1.png" class="choice1" id="choice1" style="display:none;"/>
+		<img src="dirt2.png" class="choice2" id="choice2"style="display:none;"/>
+		<img src="dirt3.png" class="choice3" id="choice3"style="display:none;"/>
+		<img src="dirt4.png" class="choice4" id="choice4"style="display:none;"/>
+		<img src="correct.png" class="correct" style="display:none; z-index:5;position:absolute; left:600px; top:300px"/>
+		<img src="wrong.png" class="wrong" style="display:none; z-index:5;position:absolute; left:600px; top:300px"/>
+		<img src="hand.png" class="hand" style="display:none; z-index:5;position:absolute; "/>
+		<img src="temp_first.jpg" class="block1"/> 
+		<img src="temp_first.jpg" class="block2"/>
+		<img src="temp_end.jpg" class="theend"style="display:none; "/>
+		<img src="temp_black.jpg" class="start"style="z-index:15;height:1080px;width:1920px;position:absolute;left:0px; top:0px"/>
+		<img src="temp_white.jpg" class="last"style="display:none; z-index:15;height:1080px;width:1920px;position:absolute;left:0px; top:0px"/>
+		<img src="game_over.jpg" class="gameover"style="display:none; "/>
+		<img src="arrow.png" class="arrow"/>
+		<div style="position:absolute; left:0px; top:900px;">
+			<p style="color:white;font-size:2em;background-color:red;">HTML,Javascript,CSS編寫: 彭冠傑</p>
+			<p style="color:white;font-size:2em;background-color:red;">背景繪製,物件繪製: 彭冠傑</p>
+			<p style="color:white;font-size:2em;background-color:red;">音樂音效編輯: 彭冠傑</p>
+			<p style="color:white;font-size:2em;background-color:red;">背景音樂: undertale OST -waterfall</p>
+			<p style="color:white;font-size:2em;background-color:red;">答案是1234</p>
+		</div>
+		<canvas id="myCanvas" width="300" height="15" style="border:5px solid #AAAAAA;">
+		Your browser does not support the HTML5 canvas tag.</canvas>	
+		<audio src="waterfall.mp3" loop="loop" autoplay="autoplay" controls="controls">
+		<audio id="play" src="walk1.mp3"></audio>
+		<canvas id="myCanvas" width="300" height="15" style="border:5px solid #AAAAAA;">
+		Your browser does not support the HTML5 canvas tag.</canvas>
+		<script>
+		var c = document.getElementById("myCanvas");
+		var ctx = c.getContext("2d");
+		var grd=ctx.createLinearGradient(0,0,175,50);
+		grd.addColorStop(0,"#880000");
+		grd.addColorStop(1,"#227700");
+		var n = 300;
+		ctx.beginPath();
+		ctx.rect(0, 0, 300, 15);
+		ctx.fillStyle = grd;
+		ctx.fill();
+		reduce();
+		function reduce() {
+			if (n < 0) {
+				window.alert("Time's up!");
+				alert("Game Over!");
+				window.location.reload();
+				return;
+			}
+			ctx.beginPath();
+			ctx.rect(n, 0, 300, 15);
+			ctx.fillStyle = "#000000";
+			ctx.fill();
+			n--;
+			setTimeout(reduce, 1000);
+		}
+	</script> 
+	</body>  
+	</html>  
