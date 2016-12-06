@@ -6,10 +6,9 @@
     </style>
   </head>
   <body onload="initMap">
-    <div id="map"></div>
-        <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaN7KbWd9XSScvywOvK9SCahUo-P6VyXU&callback=initMap">
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry">
     </script>
+    <div id="map"></div>
     <script type="text/javascript">
 		if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(initMap);
@@ -25,8 +24,8 @@
 			center: {lat: position.coords.latitude, lng: position.coords.longitude},
 			zoom: 15
 		  });
-		  var mypos = {lat: position.coords.latitude, lng: position.coords.longitude};
-		  var mcpos = {lat: 25.1364802, lng: 121.78806980002};
+		  var mypos = new google.maps.LatLng( position.coords.latitude, position.coords.longitude);
+		  var mcpos =  new google.maps.LatLng( 25.136451, 121.788188);
 		  var MyMarker = new google.maps.Marker({
 			position: mypos,
 			label: "You",
@@ -56,15 +55,17 @@
 		  flightPath.setMap(map);
 		  directionsDisplay.setMap(map);
 		  calculateAndDisplayRoute(directionsService, directionsDisplay,mcpos,mypos);
+		  console.log(google.maps.geometry.spherical.computeDistanceBetween (mypos, mcpos)/1000 + "km");
 		}
 		function calculateAndDisplayRoute(directionsService, directionsDisplay,x,y) {
 		  directionsService.route({
 			origin: y,
 			destination: x,  
-			travelMode: google.maps.TravelMode["WALKING"]
+			travelMode: google.maps.TravelMode["DRIVING"]
 		 }, function(response, status) {
 			if (status == google.maps.DirectionsStatus.OK) {
 			  directionsDisplay.setDirections(response);
+			   console.log( response.routes[0].legs[0].distance.value /1000 + "KM");
 			} else {
 			  window.alert('Directions request failed due to ' + status);
 			}
